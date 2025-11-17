@@ -87,4 +87,4 @@ Pengintegrasian aplikasi Flutter dengan web service (backend Django waktu Proyek
     - Server mengembalikan JSON list ulasan terkait produk.
    
 ## Link Figma
-[Figma](https://www.figma.com/design/fJYS62TdZ2JrQ0HYZ1bBDr/GoSport?node-id=0-1&t=Gurqi3k1Xt31KbDU-1)
+https://www.figma.com/design/fJYS62TdZ2JrQ0HYZ1bBDr/GoSport?node-id=0-1&t=Gurqi3k1Xt31KbDU-1
