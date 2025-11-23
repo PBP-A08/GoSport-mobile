@@ -6,15 +6,17 @@ class LeftDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final primary = Theme.of(context).colorScheme.primary;
+
     return Drawer(
       child: ListView(
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(color: Color.fromARGB(255, 30, 58, 138)),
+          DrawerHeader(
+            decoration: BoxDecoration(color: Color(0xFF9D0C0C)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 Text(
                   'GoSport',
                   style: TextStyle(
@@ -31,14 +33,26 @@ class LeftDrawer extends StatelessWidget {
               ],
             ),
           ),
+
+          // MENU HOME
           ListTile(
-            leading: const Icon(Icons.home_outlined),
-            title: const Text('Home'),
+            leading: Icon(Icons.home_outlined, color: primary),
+            title: Text(
+              'Home',
+              style: TextStyle(color: primary, fontWeight: FontWeight.w600),
+            ),
             onTap: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => MyHomePage()),
+                MaterialPageRoute(builder: (context) => const MyHomePage()),
               );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.person),
+            title: const Text('Profile'),
+            onTap: () {
+              Navigator.pushNamed(context, '/profile');
             },
           ),
         ],

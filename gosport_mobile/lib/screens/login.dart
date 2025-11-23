@@ -1,8 +1,8 @@
-import 'package:gosport_mobile/screens/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:gosport_mobile/screens/register.dart';
+import 'package:gosport_mobile/constants/urls.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -74,10 +74,14 @@ class _LoginPageState extends State<LoginPage> {
                       String username = _usernameController.text;
                       String password = _passwordController.text;
 
-                      final response = await request.login(
-                        "http://localhost:8000/auth/login/",
-                        {'username': username, 'password': password},
-                      );
+                      final response = await request.login(Urls.login, {
+                        'username': username,
+                        'password': password,
+                      });
+
+                      print("Login response: $response"); // ← Debug
+                      print("Logged in status: ${request.loggedIn}"); // ← Debug
+                      print("Cookies: ${request.cookies}"); // ← Debug
 
                       if (request.loggedIn) {
                         String message = response['message'];

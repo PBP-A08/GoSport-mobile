@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gosport_mobile/screens/login.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:gosport_mobile/constants/urls.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -16,29 +17,52 @@ class _RegisterPageState extends State<RegisterPage> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
+  String? selectedRole;
+
   Widget buildInputField({
     required String label,
     required String hint,
     required TextEditingController controller,
     bool obscure = false,
   }) {
-    return TextFormField(
-      controller: controller,
-      obscureText: obscure,
-      decoration: InputDecoration(
-        labelText: label,
-        hintText: hint,
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
+    final theme = Theme.of(context);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: theme.colorScheme.primary,
+          ),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      ),
+        const SizedBox(height: 6),
+        TextFormField(
+          controller: controller,
+          obscureText: obscure,
+          decoration: InputDecoration(
+            hintText: hint,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: theme.colorScheme.primary),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 14,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -48,64 +72,125 @@ class _RegisterPageState extends State<RegisterPage> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
+
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(20),
           child: Card(
-            elevation: 8,
+            elevation: 6,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(16),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(24),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Text(
-                    'Register',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  // TITLE
+                  Text(
+                    "Join Us",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.w600,
+                      color: theme.colorScheme.primary,
+                    ),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 4),
+                  const Text(
+                    "Create your GoSport account",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                  const SizedBox(height: 32),
 
-                  // Username
+                  // USERNAME
                   buildInputField(
                     label: 'Username',
-                    hint: 'Enter your username',
+                    hint: 'Choose a username',
                     controller: _usernameController,
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 16),
 
-                  // Password
+                  // DROPDOWN ROLE
+                  Text(
+                    'Account Role',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: theme.colorScheme.primary,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: theme.colorScheme.primary,
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 14,
+                      ),
+                    ),
+                    value: selectedRole,
+                    hint: const Text("Select your role"),
+                    items: const [
+                      DropdownMenuItem(value: "buyer", child: Text("Buyer")),
+                      DropdownMenuItem(value: "seller", child: Text("Seller")),
+                    ],
+                    onChanged: (value) => setState(() {
+                      selectedRole = value;
+                    }),
+                  ),
+                  const SizedBox(height: 16),
+
+                  // PASSWORD
                   buildInputField(
                     label: 'Password',
-                    hint: 'Enter your password',
+                    hint: 'Create a password',
                     controller: _passwordController,
                     obscure: true,
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 16),
 
-                  // Confirm password
+                  // CONFIRM PASSWORD
                   buildInputField(
                     label: 'Confirm Password',
                     hint: 'Confirm your password',
                     controller: _confirmPasswordController,
                     obscure: true,
                   ),
-
                   const SizedBox(height: 24),
 
+                  // REGISTER BUTTON USING THEME
                   ElevatedButton(
                     onPressed: () async {
                       String username = _usernameController.text;
                       String password1 = _passwordController.text;
                       String password2 = _confirmPasswordController.text;
 
+                      if (selectedRole == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Please choose a role."),
+                          ),
+                        );
+                        return;
+                      }
+
                       final response = await request.postJson(
-                        "http://localhost:8000/auth/register/",
+                        Urls.register, // ← Ganti jadi pakai Urls.register
                         jsonEncode({
                           "username": username,
                           "password1": password1,
                           "password2": password2,
+                          "role": selectedRole,
                         }),
                       );
 
@@ -125,11 +210,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Failed to register!')),
+                          SnackBar(
+                            content: Text(response['message'] ?? 'Failed'),
+                          ),
                         );
                       }
                     },
-                    child: const Text('Register'),
+                    child: const Text("Create Account"),
                   ),
                 ],
               ),

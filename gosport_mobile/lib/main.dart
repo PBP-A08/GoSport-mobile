@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gosport_mobile/screens/menu.dart';
+import 'package:gosport_mobile/screens/profile_dashboard/profile_page.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:gosport_mobile/screens/login.dart';
@@ -22,33 +23,45 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Football News',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color(0xFF9D0C0C),
-            primary: const Color(0xFF9D0C0C),
-            secondary: const Color(0xFFB31312),
-          ),
-          scaffoldBackgroundColor: Colors.white,
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF9D0C0C)),
+          primaryColor: const Color(0xFF9D0C0C),
           appBarTheme: const AppBarTheme(
             backgroundColor: Color(0xFF9D0C0C),
             foregroundColor: Colors.white,
-            elevation: 0,
+          ),
+          scaffoldBackgroundColor: Colors.white,
+          inputDecorationTheme: InputDecorationTheme(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: Colors.grey),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(
+                color: Color(0xFF9D0C0C),
+                width: 1.5,
+              ),
+            ),
+            hintStyle: const TextStyle(color: Colors.grey),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 14,
+            ),
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.resolveWith<Color>((
-                states,
-              ) {
-                if (states.contains(MaterialState.hovered) ||
-                    states.contains(MaterialState.pressed)) {
+              backgroundColor: WidgetStateProperty.resolveWith<Color>((states) {
+                if (states.contains(WidgetState.hovered) ||
+                    states.contains(WidgetState.pressed)) {
                   return const Color(0xFFB31312);
                 }
                 return const Color(0xFF9D0C0C);
               }),
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-              padding: MaterialStateProperty.all<EdgeInsets>(
+              foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+              padding: WidgetStateProperty.all<EdgeInsets>(
                 const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
               ),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
             ),
@@ -59,7 +72,12 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: const LoginPage(),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const LoginPage(),
+          '/home': (context) => const MyHomePage(),
+          '/profile': (context) => const ProfilePage(),
+        },
       ),
     );
   }
