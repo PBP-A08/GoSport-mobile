@@ -3,11 +3,12 @@ class Urls {
 
   static const String baseUrl = isDevelopment
       ? 'http://localhost:8000' // Local
-      : 'https://sherin-khaira-football-site.pbp.cs.ui.ac.id'; // PWS Production
+      : 'http://sherin-khaira-football-site.pbp.cs.ui.ac.id'; // PWS Production
 
   // Auth endpoints
   static const String login = '$baseUrl/auth/login/';
   static const String register = '$baseUrl/auth/register/';
+  static const String logout = '$baseUrl/auth/logout/';
 
   // Profile endpoints
   static const String profileJson = '$baseUrl/profile/json/';

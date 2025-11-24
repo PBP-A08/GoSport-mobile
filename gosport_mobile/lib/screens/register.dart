@@ -185,7 +185,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       }
 
                       final response = await request.postJson(
-                        Urls.register, // ← Ganti jadi pakai Urls.register
+                        Urls.register,
                         jsonEncode({
                           "username": username,
                           "password1": password1,

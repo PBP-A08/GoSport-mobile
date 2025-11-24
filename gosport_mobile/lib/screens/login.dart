@@ -79,11 +79,16 @@ class _LoginPageState extends State<LoginPage> {
                         'password': password,
                       });
 
-                      print("Login response: $response"); // ← Debug
-                      print("Logged in status: ${request.loggedIn}"); // ← Debug
-                      print("Cookies: ${request.cookies}"); // ← Debug
+                      print("Login response: $response");
+                      print("Logged in status: ${request.loggedIn}");
+                      print("Cookies: ${request.cookies}");
 
                       if (request.loggedIn) {
+                        if (response.containsKey('role')) {
+                          request.jsonData['role'] = response['role'];
+                          print("User role saved: ${request.jsonData['role']}");
+                        }
+
                         String message = response['message'];
                         String uname = response['username'];
 
