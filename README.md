@@ -88,3 +88,6 @@ Pengintegrasian aplikasi Flutter dengan web service (backend Django waktu Proyek
    
 ## Link Figma
 https://www.figma.com/design/fJYS62TdZ2JrQ0HYZ1bBDr/GoSport?node-id=0-1&t=Gurqi3k1Xt31KbDU-1
+
+## Link Progress Plan
+https://docs.google.com/spreadsheets/d/1MuF_YgV212tpJbHWSp8vy-Kh_pzi_pVWmywyIWC_wN8/edit?usp=sharing
