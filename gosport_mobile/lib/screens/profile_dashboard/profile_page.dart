@@ -33,6 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
     try {
       final response = await request.get(Urls.profileJson);
       print("Profile response: $response"); // ← Debug
+      print(Urls.profileJson); // ← Debug
       if (response.containsKey('error')) {
         throw Exception(response['error']);
       }
