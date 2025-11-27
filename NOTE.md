@@ -1,0 +1,1 @@
+- on deploy set isDevelopment to false in urls.dart

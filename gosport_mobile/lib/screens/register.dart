@@ -177,12 +177,13 @@ class _RegisterPageState extends State<RegisterPage> {
 
                       if (selectedRole == null) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("Please choose a role."),
-                          ),
+                          const SnackBar(content: Text("Please choose a role.")),
                         );
                         return;
                       }
+
+                      // Print for debugging
+                      print("Registering user: $username with role: $selectedRole");
 
                       final response = await request.postJson(
                         Urls.register,
@@ -190,29 +191,27 @@ class _RegisterPageState extends State<RegisterPage> {
                           "username": username,
                           "password1": password1,
                           "password2": password2,
-                          "role": selectedRole,
+                          "role": selectedRole, // Sending role to backend
                         }),
                       );
+                      
+                      print("Register Response: $response");
 
                       if (!context.mounted) return;
 
                       if (response['status'] == 'success') {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Successfully registered!'),
-                          ),
+                          const SnackBar(content: Text('Successfully registered! Please login.')),
                         );
+                        
+                        // Navigate back to Login Page
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginPage(),
-                          ),
+                          MaterialPageRoute(builder: (context) => const LoginPage()),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(response['message'] ?? 'Failed'),
-                          ),
+                          SnackBar(content: Text(response['message'] ?? 'Registration failed')),
                         );
                       }
                     },

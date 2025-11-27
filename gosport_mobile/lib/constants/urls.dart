@@ -1,5 +1,5 @@
 class Urls {
-  static const bool isDevelopment = false;
+  static const bool isDevelopment = true;
 
   static const String baseUrl = isDevelopment
       ? 'http://localhost:8000' // Local

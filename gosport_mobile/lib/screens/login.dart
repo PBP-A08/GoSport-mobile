@@ -3,6 +3,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:gosport_mobile/screens/register.dart';
 import 'package:gosport_mobile/constants/urls.dart';
+import 'package:gosport_mobile/main.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -74,32 +75,34 @@ class _LoginPageState extends State<LoginPage> {
                       String username = _usernameController.text;
                       String password = _passwordController.text;
 
+                      // Print for debugging
+                      print("Attempting login for: $username");
+
                       final response = await request.login(Urls.login, {
                         'username': username,
                         'password': password,
                       });
 
                       print("Login response: $response");
-                      print("Logged in status: ${request.loggedIn}");
-                      print("Cookies: ${request.cookies}");
 
                       if (request.loggedIn) {
-                        if (response.containsKey('role')) {
-                          request.jsonData['role'] = response['role'];
-                          print("User role saved: ${request.jsonData['role']}");
-                        }
-
                         String message = response['message'];
                         String uname = response['username'];
+                        
+                        // Handle Role safely
+                        if (response.containsKey('role')) {
+                          request.jsonData['role'] = response['role'];
+                          print("Role saved: ${response['role']}");
+                        }
 
                         if (context.mounted) {
+                          // Navigate to Home
                           Navigator.pushReplacementNamed(context, '/home');
+                          
                           ScaffoldMessenger.of(context)
                             ..hideCurrentSnackBar()
                             ..showSnackBar(
-                              SnackBar(
-                                content: Text("$message Welcome, $uname."),
-                              ),
+                              SnackBar(content: Text("$message Welcome, $uname.")),
                             );
                         }
                       } else {
@@ -108,13 +111,11 @@ class _LoginPageState extends State<LoginPage> {
                             context: context,
                             builder: (context) => AlertDialog(
                               title: const Text('Login Failed'),
-                              content: Text(response['message']),
+                              content: Text(response['message'] ?? 'Unknown error'),
                               actions: [
                                 TextButton(
                                   child: const Text('OK'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
+                                  onPressed: () => Navigator.pop(context),
                                 ),
                               ],
                             ),
