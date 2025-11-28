@@ -15,4 +15,6 @@ class Urls {
   static const String profileEdit = '$baseUrl/profile/edit-json/';
   static const String changePassword = '$baseUrl/profile/change-password/';
   static const String deleteAccount = '$baseUrl/profile/delete-json/';
+
+  static const String json = '$baseUrl/json/';
 }

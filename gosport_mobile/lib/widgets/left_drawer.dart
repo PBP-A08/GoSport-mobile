@@ -4,6 +4,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:gosport_mobile/constants/urls.dart';
 import 'package:gosport_mobile/screens/login.dart';
+import 'package:gosport_mobile/screens/product_display/product_list.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -101,6 +102,23 @@ class LeftDrawer extends StatelessWidget {
               }
             },
           ),
+
+
+          //PRODUCTS LIST
+          ListTile(
+          leading: const Icon(Icons.add_reaction_rounded),
+          title: const Text('News List'),
+          onTap: () {
+              // Route to news list page
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ProductListPage()),
+              );
+          },
+      ),
+
+
+
         ],
       ),
     );
