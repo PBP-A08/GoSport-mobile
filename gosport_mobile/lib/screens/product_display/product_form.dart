@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gosport_mobile/widgets/left_drawer.dart';
 
-class NewsFormPage extends StatefulWidget {
-    const NewsFormPage({super.key});
+class ProductFormPage extends StatefulWidget {
+    const ProductFormPage({super.key});
 
     @override
-    State<NewsFormPage> createState() => _NewsFormPageState();
+    State<ProductFormPage> createState() => _ProductFormPageState();
 }
 
-class _NewsFormPageState extends State<NewsFormPage> {
+class _ProductFormPageState extends State<ProductFormPage> {
     final _formKey = GlobalKey<FormState>();
     String _title = "";
     String _content = "";
@@ -195,6 +195,6 @@ class _NewsFormPageState extends State<NewsFormPage> {
                     ]
                 ),
             ),
-        );)
+        ));
     }
 }

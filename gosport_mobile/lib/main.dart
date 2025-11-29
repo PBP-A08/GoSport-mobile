@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => const LoginPage(),
-          '/home': (context) => const MyHomePage(),
+          '/home': (context) => MyHomePage(),
           '/profile': (context) => const ProfilePage(),
         },
       ),

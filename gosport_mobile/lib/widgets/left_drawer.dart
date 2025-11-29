@@ -52,7 +52,7 @@ class LeftDrawer extends StatelessWidget {
             onTap: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const MyHomePage()),
+                MaterialPageRoute(builder: (context) => MyHomePage()),
               );
             },
           ),
@@ -107,7 +107,7 @@ class LeftDrawer extends StatelessWidget {
           //PRODUCTS LIST
           ListTile(
           leading: const Icon(Icons.add_reaction_rounded),
-          title: const Text('News List'),
+          title: const Text('Products'),
           onTap: () {
               // Route to news list page
               Navigator.push(
