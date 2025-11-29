@@ -30,10 +30,7 @@ class ItemCard extends StatelessWidget {
         onTap: () async {
           // Menampilkan pesan SnackBar saat kartu ditekan.
           ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!"))
-            );
+            ..hideCurrentSnackBar();
           if (item.name == "Add Product") {
             Navigator.push(
               context,

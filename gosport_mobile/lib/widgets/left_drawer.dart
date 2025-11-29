@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:gosport_mobile/constants/urls.dart';
 import 'package:gosport_mobile/screens/login.dart';
 import 'package:gosport_mobile/screens/product_display/product_list.dart';
+import 'package:gosport_mobile/screens/product_display/product_form.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -69,6 +70,34 @@ class LeftDrawer extends StatelessWidget {
 
           const Divider(),
 
+          //PRODUCTS LIST
+          ListTile(
+          leading: const Icon(Icons.add_reaction_rounded),
+          title: const Text('Products'),
+          onTap: () {
+              // Route to news list page
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ProductListPage()),
+              );
+          },
+      ),
+
+      //ADD PRODUCT
+      ListTile(
+        leading: const Icon(Icons.add_box),
+        title: const Text('Add Product'),
+        // Bagian redirection ke NewsFormPage
+        onTap: () {
+                Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ProductFormPage(),
+                ));
+            },
+      ),
+
+
           // LOGOUT BUTTON
           ListTile(
             leading: Icon(Icons.logout, color: Colors.red.shade700),
@@ -102,22 +131,6 @@ class LeftDrawer extends StatelessWidget {
               }
             },
           ),
-
-
-          //PRODUCTS LIST
-          ListTile(
-          leading: const Icon(Icons.add_reaction_rounded),
-          title: const Text('Products'),
-          onTap: () {
-              // Route to news list page
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ProductListPage()),
-              );
-          },
-      ),
-
-
 
         ],
       ),

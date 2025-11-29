@@ -3,6 +3,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:gosport_mobile/screens/register.dart';
 import 'package:gosport_mobile/constants/urls.dart';
+import 'package:gosport_mobile/constants/states.dart';
 import 'package:gosport_mobile/main.dart';
 
 class LoginPage extends StatefulWidget {
@@ -93,6 +94,10 @@ class _LoginPageState extends State<LoginPage> {
                         if (response.containsKey('role')) {
                           request.jsonData['role'] = response['role'];
                           print("Role saved: ${response['role']}");
+
+                          //set states
+                          role_state = response['role'];
+                          username_state = response['message'];
                         }
 
                         if (context.mounted) {
