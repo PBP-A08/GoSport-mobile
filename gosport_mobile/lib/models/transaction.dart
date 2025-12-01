@@ -17,9 +17,13 @@ class Transaction {
   double totalPrice;
   double amountDue;
   PaymentStatus paymentStatus;
+  DateTime date;
+  DateTime updatedAt;
   List<TransactionProduct> entries;
 
   bool get isComplete => paymentStatus == PaymentStatus.paid;
+
+  int get itemCount => entries.fold(0, (a, b) => a + b.amount);
 
   Transaction({
     required this.id,
@@ -29,6 +33,8 @@ class Transaction {
     required this.amountDue,
     required this.paymentStatus,
     required this.entries,
+    required this.date,
+    required this.updatedAt,
   });
 
 }

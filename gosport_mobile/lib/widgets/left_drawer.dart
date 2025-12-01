@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gosport_mobile/screens/menu.dart';
+import 'package:gosport_mobile/screens/payment/payment_dashboard.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:gosport_mobile/constants/urls.dart';
@@ -97,6 +98,16 @@ class LeftDrawer extends StatelessWidget {
             },
       ),
 
+          // PAYMENT BUTTON
+          ListTile(
+            leading: const Icon(Icons.receipt_long),
+            title: const Text("Payment"),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PaymentDashboard()));
+            },
+          ),
 
           // LOGOUT BUTTON
           ListTile(

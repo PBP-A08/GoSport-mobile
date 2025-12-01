@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gosport_mobile/screens/menu.dart';
+import 'package:gosport_mobile/screens/payment/payment_dashboard.dart';
 import 'package:gosport_mobile/screens/profile_dashboard/profile_page.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -77,6 +78,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => const LoginPage(),
           '/home': (context) => MyHomePage(),
           '/profile': (context) => const ProfilePage(),
+          '/payment': (context) => const PaymentDashboard(),
         },
       ),
     );

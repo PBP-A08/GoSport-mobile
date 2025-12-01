@@ -1,0 +1,84 @@
+import 'package:flutter/material.dart';
+import 'package:gosport_mobile/screens/payment/transaction_card.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+
+import 'package:gosport_mobile/models/transaction.dart';
+import 'package:provider/provider.dart';
+
+class PaymentDashboard extends StatefulWidget {
+
+  const PaymentDashboard({super.key});
+
+  @override
+  State<PaymentDashboard> createState() => _PaymentDashboardState();
+
+}
+
+class _PaymentDashboardState extends State<PaymentDashboard> {
+
+  final List<Transaction> fakeTransactionData = [
+    Transaction(
+      id: "00000000-0000-0000-0000-000000000001",
+      buyerId: "00000000-0000-0000-0000-000000000001",
+      amountPaid: 500000.0,
+      totalPrice: 600000.0,
+      amountDue: 100000.0,
+      paymentStatus: PaymentStatus.due,
+      date: DateTime.now(),
+      updatedAt: DateTime.now(),
+      entries: [],
+    ),
+    Transaction(
+      id: "00000000-0000-0000-0000-000000000001",
+      buyerId: "00000000-0000-0000-0000-000000000001",
+      amountPaid: 500000.0,
+      totalPrice: 600000.0,
+      amountDue: 100000.0,
+      paymentStatus: PaymentStatus.due,
+      date: DateTime.now(),
+      updatedAt: DateTime.now(),
+      entries: [],
+    ),
+    Transaction(
+      id: "00000000-0000-0000-0000-000000000001",
+      buyerId: "00000000-0000-0000-0000-000000000001",
+      amountPaid: 500000.0,
+      totalPrice: 600000.0,
+      amountDue: 100000.0,
+      paymentStatus: PaymentStatus.due,
+      date: DateTime.now(),
+      updatedAt: DateTime.now(),
+      entries: [],
+    ),
+  ];
+
+  Future<List<Transaction>> fetchTransactions(CookieRequest request) async {
+    // Return fake data for now
+    return fakeTransactionData;
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    CookieRequest request = context.watch<CookieRequest>();
+    return Scaffold(
+      body: FutureBuilder(
+        future: fetchTransactions(request),
+        builder: (context, AsyncSnapshot snapshot) {
+          if (snapshot.hasError) {
+            return Text("Oh tidak");
+          } else if (!snapshot.hasData) {
+            return Text("Loading...");
+          } else {
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (_, index) {
+                final Transaction transaction = snapshot.data![index];
+                return TransactionCard(transaction: transaction);
+              },
+            );
+          }
+        },
+      ),
+    );
+  }
+}
