@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gosport_mobile/screens/login.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';

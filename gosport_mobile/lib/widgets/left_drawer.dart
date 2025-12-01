@@ -73,30 +73,18 @@ class LeftDrawer extends StatelessWidget {
 
           //PRODUCTS LIST
           ListTile(
-          leading: const Icon(Icons.add_reaction_rounded),
-          title: const Text('Products'),
-          onTap: () {
+            leading: const Icon(Icons.add_reaction_rounded),
+            title: const Text('Products'),
+            onTap: () {
               // Route to news list page
               Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ProductListPage()),
-              );
-          },
-      ),
-
-      //ADD PRODUCT
-      ListTile(
-        leading: const Icon(Icons.add_box),
-        title: const Text('Add Product'),
-        // Bagian redirection ke NewsFormPage
-        onTap: () {
-                Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => ProductFormPage(),
-                ));
+                  builder: (context) => const ProductListPage(),
+                ),
+              );
             },
-      ),
+          ),
 
           // PAYMENT BUTTON
           ListTile(
@@ -106,6 +94,18 @@ class LeftDrawer extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => PaymentDashboard()));
+            },
+          ),
+
+          //ADD PRODUCT
+          ListTile(
+            leading: const Icon(Icons.add_box),
+            title: const Text('Add Product'),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => ProductFormPage()),
+              );
             },
           ),
 
@@ -142,7 +142,6 @@ class LeftDrawer extends StatelessWidget {
               }
             },
           ),
-
         ],
       ),
     );
