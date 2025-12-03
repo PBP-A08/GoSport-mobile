@@ -16,20 +16,19 @@ class ProductListPage extends StatefulWidget {
 
 class _ProductListPageState extends State<ProductListPage> {
   Future<List<Product>> fetchProduct(CookieRequest request) async {
-    
     final response = await request.get(Urls.json);
     
     // Decode response to json format
     var data = response;
     
     // Convert json data to Product objects
-    List<Product> listNews = [];
+    List<Product> listProducts = [];
     for (var d in data) {
       if (d != null) {
-        listNews.add(Product.fromJson(d));
+        listProducts.add(Product.fromJson(d));
       }
     }
-    return listNews;
+    return listProducts;
   }
 
   @override
@@ -46,18 +45,26 @@ class _ProductListPageState extends State<ProductListPage> {
           if (snapshot.data == null) {
             return const Center(child: CircularProgressIndicator());
           } else {
-            if (!snapshot.hasData) {
+            if (!snapshot.hasData || snapshot.data!.isEmpty) {
               return const Column(
                 children: [
                   Text(
-                    'There are no news in football news yet.',
+                    'There are no products available yet.',
                     style: TextStyle(fontSize: 20, color: Color(0xff59A5D8)),
                   ),
                   SizedBox(height: 8),
                 ],
               );
             } else {
-              return ListView.builder(
+              // --- CHANGED TO GRIDVIEW ---
+              return GridView.builder(
+                padding: const EdgeInsets.all(10), // Add padding around the grid
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, // 2 Columns
+                  crossAxisSpacing: 10, // Horizontal space between cards
+                  mainAxisSpacing: 10, // Vertical space between cards
+                  childAspectRatio: 0.75, // Adjust this ratio to fit your ProductCard content
+                ),
                 itemCount: snapshot.data!.length,
                 itemBuilder: (_, index) => ProductCard(
                   product: snapshot.data![index],
@@ -65,14 +72,15 @@ class _ProductListPageState extends State<ProductListPage> {
                      Navigator.push(
                         context,
                         MaterialPageRoute(
-                        builder: (context) => ProductDetailPage(
-                            product: snapshot.data![index],
-                        ),
+                          builder: (context) => ProductDetailPage(
+                              product: snapshot.data![index],
+                          ),
                         ),
                     );
                   },
                 ),
               );
+              // ---------------------------
             }
           }
         },
