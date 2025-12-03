@@ -26,7 +26,26 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
       paymentStatus: PaymentStatus.due,
       date: DateTime.now(),
       updatedAt: DateTime.now(),
-      entries: [],
+      entries: [
+        TransactionProduct(
+          productId: "",
+          productName: "Ramuan Fokus Model SB-A-01",
+          amount: 20,
+          price: 30000
+        ),
+        TransactionProduct(
+            productId: "",
+            productName: "Bola Homing",
+            amount: 20,
+            price: 30000
+        ),
+        TransactionProduct(
+            productId: "",
+            productName: "Gawang Lipat",
+            amount: 20,
+            price: 30000
+        ),
+      ],
     ),
     Transaction(
       id: "00000000-0000-0000-0000-000000000001",
@@ -37,7 +56,14 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
       paymentStatus: PaymentStatus.due,
       date: DateTime.now(),
       updatedAt: DateTime.now(),
-      entries: [],
+      entries: [
+        TransactionProduct(
+            productId: "",
+            productName: "Bola Homing",
+            amount: 20,
+            price: 30000
+        ),
+      ],
     ),
     Transaction(
       id: "00000000-0000-0000-0000-000000000001",
@@ -48,7 +74,14 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
       paymentStatus: PaymentStatus.due,
       date: DateTime.now(),
       updatedAt: DateTime.now(),
-      entries: [],
+      entries: [
+        TransactionProduct(
+            productId: "",
+            productName: "Bola Homing",
+            amount: 20,
+            price: 30000
+        ),
+      ],
     ),
   ];
 
