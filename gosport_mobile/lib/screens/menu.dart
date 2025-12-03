@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:gosport_mobile/widgets/left_drawer.dart';
 import 'package:gosport_mobile/screens/menu_card.dart';
+import 'package:gosport_mobile/constants/states.dart';
 
 class MyHomePage extends StatelessWidget {
-  MyHomePage({super.key});
+  const MyHomePage({super.key});
   final String nama = "Sherin Messi"; //nama
   final String npm = "2406404112"; //npm
   final String kelas = "B"; //kelas
-  final List<ItemHomepage> items = [
-    ItemHomepage("See Sports Products", Icons.newspaper),
-    ItemHomepage("Add Product", Icons.add),
-    ItemHomepage("Logout", Icons.logout),
-  ];
-
+  List<ItemHomepage> get items {
+    return [
+      ItemHomepage("See Sports Products", Icons.newspaper),
+      
+      // The "Collection If" works exactly the same here
+      if (role_state == "seller") 
+        ItemHomepage("Add Product", Icons.add),
+        
+      ItemHomepage("Logout", Icons.logout),
+    ];
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

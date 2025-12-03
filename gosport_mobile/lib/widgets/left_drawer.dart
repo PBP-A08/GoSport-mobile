@@ -4,9 +4,11 @@ import 'package:gosport_mobile/screens/payment/payment_dashboard.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:gosport_mobile/constants/urls.dart';
+import 'package:gosport_mobile/constants/states.dart';
 import 'package:gosport_mobile/screens/login.dart';
 import 'package:gosport_mobile/screens/product_display/product_list.dart';
 import 'package:gosport_mobile/screens/product_display/product_form.dart';
+
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -97,17 +99,17 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
 
-          //ADD PRODUCT
-          ListTile(
-            leading: const Icon(Icons.add_box),
-            title: const Text('Add Product'),
-            onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => ProductFormPage()),
-              );
-            },
-          ),
+if (role_state == "seller") 
+      ListTile(
+        leading: const Icon(Icons.add_box),
+        title: const Text('Add Product'),
+        onTap: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => ProductFormPage()),
+          );
+        },
+      ),
 
           // LOGOUT BUTTON
           ListTile(
