@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gosport_mobile/models/product.dart';
 import 'package:gosport_mobile/constants/urls.dart';
 
-class NewsDetailPage extends StatelessWidget {
+class ProductDetailPage extends StatelessWidget {
   final Product product;
 
-  const NewsDetailPage({super.key, required this.product});
+  const ProductDetailPage({super.key, required this.product});
 
   String _formatDate(DateTime date) {
     // Simple date formatter without intl package

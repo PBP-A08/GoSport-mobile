@@ -65,7 +65,7 @@ class _ProductListPageState extends State<ProductListPage> {
                      Navigator.push(
                         context,
                         MaterialPageRoute(
-                        builder: (context) => NewsDetailPage(
+                        builder: (context) => ProductDetailPage(
                             product: snapshot.data![index],
                         ),
                         ),
