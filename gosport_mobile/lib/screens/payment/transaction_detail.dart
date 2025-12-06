@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gosport_mobile/constants/urls.dart';
 import 'package:gosport_mobile/models/transaction.dart';
 
 class TransactionDetailPage extends StatelessWidget {
@@ -14,7 +13,6 @@ class TransactionDetailPage extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-
               // == TRANSACTION ATTRIBUTES ==
               Card(
                 shape: RoundedRectangleBorder(
@@ -28,11 +26,11 @@ class TransactionDetailPage extends StatelessWidget {
                       TableRow(
                         children: [
                           Text(
-                              "Created at",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              )
+                            "Created at",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
                           ),
                           Text(
                             transaction.date.toString(),
@@ -64,11 +62,11 @@ class TransactionDetailPage extends StatelessWidget {
                       TableRow(
                         children: [
                           Text(
-                              "# items",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              )
+                            "# items",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
                           ),
                           Text(
                             "${transaction.itemCount}",
@@ -93,29 +91,16 @@ class TransactionDetailPage extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
-                      Text(
-                        "Items",
-                        style: TextStyle(
-                          fontSize: 24,
-                        ),
-                      ),
+                      Text("Items", style: TextStyle(fontSize: 24)),
                       Column(
                         children: transaction.entries.map((entry) {
                           return Row(
                             children: [
-                              Expanded(
-                                child: Text(
-                                  entry.productName,
-                                ),
-                              ),
+                              Expanded(child: Text(entry.productName)),
                               const SizedBox(width: 10.0),
-                              Text(
-                                "${entry.amount}",
-                              ),
+                              Text("${entry.amount}"),
                               const SizedBox(width: 10.0),
-                              Text(
-                                "${entry.totalPrice}",
-                              ),
+                              Text("${entry.totalPrice}"),
                             ],
                           );
                         }).toList(),
@@ -130,5 +115,4 @@ class TransactionDetailPage extends StatelessWidget {
       ),
     );
   }
-
 }

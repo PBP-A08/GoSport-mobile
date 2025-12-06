@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gosport_mobile/screens/cart/card_dashboard.dart';
+import 'package:gosport_mobile/screens/cart/checkout_review.dart';
 import 'package:gosport_mobile/screens/menu.dart';
 import 'package:gosport_mobile/screens/payment/payment_dashboard.dart';
 import 'package:gosport_mobile/screens/profile_dashboard/profile_page.dart';
@@ -79,6 +81,8 @@ class MyApp extends StatelessWidget {
           '/home': (context) => MyHomePage(),
           '/profile': (context) => const ProfilePage(),
           '/payment': (context) => const PaymentDashboard(),
+          '/cart': (context) => const CartDashboard(),
+          '/checkout-review': (context) => const CheckoutReviewScreen(),
         },
       ),
     );

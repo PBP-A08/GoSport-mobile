@@ -137,7 +137,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         vertical: 14,
                       ),
                     ),
-                    value: selectedRole,
+                    initialValue: selectedRole,
                     hint: const Text("Select your role"),
                     items: const [
                       DropdownMenuItem(value: "buyer", child: Text("Buyer")),

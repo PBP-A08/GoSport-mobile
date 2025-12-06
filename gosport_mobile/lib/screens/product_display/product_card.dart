@@ -6,11 +6,7 @@ class ProductCard extends StatelessWidget {
   final Product product;
   final VoidCallback onTap;
 
-  const ProductCard({
-    super.key,
-    required this.product,
-    required this.onTap,
-  });
+  const ProductCard({super.key, required this.product, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +31,7 @@ class ProductCard extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(6),
                   child: Image.network(
-                    Urls.baseUrl+'/proxy-image/?url=${Uri.encodeComponent(fields.thumbnail)}',
+                    '${Urls.baseUrl}/proxy-image/?url=${Uri.encodeComponent(fields.thumbnail)}',
                     height: 150,
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -79,7 +75,7 @@ class ProductCard extends StatelessWidget {
                     'Featured',
                     style: TextStyle(
                       color: Colors.amber,
-                      fontWeight: FontWeight.bold
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
               ],

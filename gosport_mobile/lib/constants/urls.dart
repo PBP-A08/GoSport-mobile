@@ -16,5 +16,10 @@ class Urls {
   static const String changePassword = '$baseUrl/profile/change-password/';
   static const String deleteAccount = '$baseUrl/profile/delete-json/';
 
+  // Cart endpoints
+  static const String cartJson = '$baseUrl/cart/json/';
+  static const String cartUpdate = '$baseUrl/cart/update/';
+  static const String cartDelete = '$baseUrl/cart/delete/';
+
   static const String json = '$baseUrl/json/';
 }

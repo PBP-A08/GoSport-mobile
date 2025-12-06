@@ -9,7 +9,6 @@ import 'package:gosport_mobile/screens/login.dart';
 import 'package:gosport_mobile/screens/product_display/product_list.dart';
 import 'package:gosport_mobile/screens/product_display/product_form.dart';
 
-
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
 
@@ -94,22 +93,33 @@ class LeftDrawer extends StatelessWidget {
             title: const Text("Payment"),
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PaymentDashboard()));
+                context,
+                MaterialPageRoute(builder: (context) => PaymentDashboard()),
+              );
             },
           ),
 
-if (role_state == "seller") 
-      ListTile(
-        leading: const Icon(Icons.add_box),
-        title: const Text('Add Product'),
-        onTap: () {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => ProductFormPage()),
-          );
-        },
-      ),
+          // CART BUTTON
+          ListTile(
+            leading: const Icon(Icons.shopping_cart),
+            title: const Text("Keranjang"),
+            onTap: () {
+              Navigator.pop(context); // Tutup drawer
+              Navigator.pushNamed(context, '/cart');
+            },
+          ),
+
+          if (role_state == "seller")
+            ListTile(
+              leading: const Icon(Icons.add_box),
+              title: const Text('Add Product'),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProductFormPage()),
+                );
+              },
+            ),
 
           // LOGOUT BUTTON
           ListTile(

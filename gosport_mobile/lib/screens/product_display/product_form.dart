@@ -14,11 +14,11 @@ class ProductFormPage extends StatefulWidget {
 
 class _ProductFormPageState extends State<ProductFormPage> {
   final _formKey = GlobalKey<FormState>();
-  
+
   // Updated variables to match Product model
   String _productName = "";
   String _description = "";
-  String _category = ""; 
+  String _category = "";
   String _thumbnail = "";
   int _oldPrice = 0;
   int _discountPercent = 0;
@@ -30,9 +30,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text('Add New Product'),
-        ),
+        title: const Center(child: Text('Add New Product')),
         backgroundColor: const Color(0xFF9D0C0C),
         foregroundColor: Colors.white,
       ),
@@ -204,37 +202,37 @@ class _ProductFormPageState extends State<ProductFormPage> {
               ),
 
               // === Thumbnail URL ===
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                    decoration: InputDecoration(
-                        hintText: "URL Thumbnail",
-                        labelText: "URL Thumbnail",
-                        border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: "URL Thumbnail",
+                    labelText: "URL Thumbnail",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
                     ),
-                    onChanged: (String? value) {
-                        setState(() {
-                        _thumbnail = value!;
-                        });
-                    },
-                    validator: (value) {
-                            if (value == null || value.isEmpty) {
-                            return 'Please enter a URL';
-                            }
-                            try {
-                            final uri = Uri.parse(value);
-                            if (!uri.isAbsolute) {
-                                return 'Please enter a valid URL';
-                            }
-                            } catch (e) {
-                            return 'Invalid URL format';
-                            }
-                            return null; // Input is valid
-                        },
-                    ),
+                  ),
+                  onChanged: (String? value) {
+                    setState(() {
+                      _thumbnail = value!;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a URL';
+                    }
+                    try {
+                      final uri = Uri.parse(value);
+                      if (!uri.isAbsolute) {
+                        return 'Please enter a valid URL';
+                      }
+                    } catch (e) {
+                      return 'Invalid URL format';
+                    }
+                    return null; // Input is valid
+                  },
                 ),
+              ),
 
               // === Save Button ===
               Align(
@@ -243,14 +241,15 @@ class _ProductFormPageState extends State<ProductFormPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(const Color(0xFF9D0C0C)),
+                      backgroundColor: WidgetStateProperty.all(
+                        const Color(0xFF9D0C0C),
+                      ),
                     ),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         // Send request to Django Backend
                         final response = await request.postJson(
-                          Urls.baseUrl+"/create-product-flutter/", // TODO: Update URL
+                          "${Urls.baseUrl}/create-product-flutter/", // TODO: Update URL
                           jsonEncode(<String, String>{
                             'product_name': _productName,
                             'old_price': _oldPrice.toString(),

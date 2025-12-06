@@ -9,19 +9,32 @@ class ProductDetailPage extends StatelessWidget {
 
   // Helper to format date
   String _formatDate(DateTime date) {
-    final months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
-                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    final months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
     return '${date.day} ${months[date.month - 1]} ${date.year}';
   }
 
   @override
   Widget build(BuildContext context) {
     final fields = product.fields;
-    
+
     // Determine image URL. Use proxy if it's an external URL to avoid CORS/Hotlinking issues
     String imageUrl = fields.thumbnail;
     if (fields.thumbnail.startsWith('http')) {
-        imageUrl = Urls.baseUrl+'/proxy-image/?url=${Uri.encodeComponent(fields.thumbnail)}';
+      imageUrl =
+          '${Urls.baseUrl}/proxy-image/?url=${Uri.encodeComponent(fields.thumbnail)}';
     }
 
     return Scaffold(
@@ -48,9 +61,16 @@ class ProductDetailPage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.broken_image, size: 60, color: Colors.grey),
+                        const Icon(
+                          Icons.broken_image,
+                          size: 60,
+                          color: Colors.grey,
+                        ),
                         const SizedBox(height: 8),
-                        Text("Image unavailable", style: TextStyle(color: Colors.grey[600]))
+                        Text(
+                          "Image unavailable",
+                          style: TextStyle(color: Colors.grey[600]),
+                        ),
                       ],
                     ),
                   ),
@@ -61,11 +81,16 @@ class ProductDetailPage extends StatelessWidget {
                     top: 16,
                     right: 16,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(20),
-                        boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 4)],
+                        boxShadow: const [
+                          BoxShadow(color: Colors.black26, blurRadius: 4),
+                        ],
                       ),
                       child: Text(
                         '-${fields.discountPercent}%',
@@ -90,7 +115,10 @@ class ProductDetailPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0,
+                          vertical: 4.0,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.red.shade50,
                           borderRadius: BorderRadius.circular(8.0),
@@ -111,7 +139,10 @@ class ProductDetailPage extends StatelessWidget {
                           const SizedBox(width: 4),
                           Text(
                             '${fields.avgRating} / 5.0',
-                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
                           ),
                         ],
                       ),
@@ -165,7 +196,7 @@ class ProductDetailPage extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                         CircleAvatar(
+                        CircleAvatar(
                           backgroundColor: Colors.red[100],
                           child: Icon(Icons.store, color: Colors.red[700]),
                         ),
@@ -175,12 +206,18 @@ class ProductDetailPage extends StatelessWidget {
                           children: [
                             Text(
                               "Seller: ${fields.seller}", // Seller Field
-                              style: const TextStyle(fontWeight: FontWeight.bold),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             Text(
-                              fields.stock > 0 ? "In Stock: ${fields.stock}" : "Out of Stock",
+                              fields.stock > 0
+                                  ? "In Stock: ${fields.stock}"
+                                  : "Out of Stock",
                               style: TextStyle(
-                                color: fields.stock > 0 ? Colors.green[700] : Colors.red,
+                                color: fields.stock > 0
+                                    ? Colors.green[700]
+                                    : Colors.red,
                                 fontSize: 12,
                               ),
                             ),
@@ -189,7 +226,7 @@ class ProductDetailPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  
+
                   const Divider(height: 32),
 
                   // 6. DESCRIPTION
@@ -207,9 +244,9 @@ class ProductDetailPage extends StatelessWidget {
                     ),
                     textAlign: TextAlign.justify,
                   ),
-                  
+
                   const SizedBox(height: 20),
-                  
+
                   // Timestamp (Optional footer)
                   Text(
                     "Listed on: ${_formatDate(fields.createdAt)}",
@@ -229,15 +266,19 @@ class ProductDetailPage extends StatelessWidget {
             backgroundColor: fields.stock > 0 ? Colors.red[700] : Colors.grey,
             foregroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(vertical: 16),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
           ),
-          onPressed: fields.stock > 0 
-            ? () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Add to cart feature coming soon!")),
-                );
-              } 
-            : null,
+          onPressed: fields.stock > 0
+              ? () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Add to cart feature coming soon!"),
+                    ),
+                  );
+                }
+              : null,
           child: Text(
             fields.stock > 0 ? "Add to Cart" : "Out of Stock",
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
