@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gosport_mobile/models/rating.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
-// import 'package:gosport_mobile/constants/urls.dart';
+import 'package:gosport_mobile/constants/urls.dart';
 import 'package:provider/provider.dart';
 import 'package:gosport_mobile/widgets/left_drawer.dart';
 import 'package:gosport_mobile/screens/rating/rating_card.dart';
 
 class RatingListPage extends StatefulWidget {
-  const RatingListPage({super.key});
+  final String productId;
+  const RatingListPage({super.key, required this.productId});
 
   @override
   State<RatingListPage> createState() => _RatingListPageState();
@@ -15,8 +16,8 @@ class RatingListPage extends StatefulWidget {
 
 class _RatingListPageState extends State<RatingListPage> {
   Future<Rating> fetchRating(CookieRequest request) async {
-    const baseUrl = 'http://localhost:8000/rating/rate-json/';
-    final response = await request.get(baseUrl);
+    final baseUrl = Urls.ratingJson;
+    final response = await request.get("$baseUrl${widget.productId}");
 
     // Convert json data to Rating objects
     final Rating ratings = Rating.fromJson(response);

@@ -22,4 +22,6 @@ class Urls {
   static const String cartDelete = '$baseUrl/cart/delete/';
 
   static const String json = '$baseUrl/json/';
+
+  static const String ratingJson = '$baseUrl/rating/json/';
 }

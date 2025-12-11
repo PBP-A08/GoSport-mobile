@@ -121,16 +121,6 @@ class LeftDrawer extends StatelessWidget {
                 );
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.add_box),
-              title: const Text('Rate Product'),
-              onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => RatingListPage()),
-                );
-              },
-            ),
           // LOGOUT BUTTON
           ListTile(
             leading: Icon(Icons.logout, color: Colors.red.shade700),

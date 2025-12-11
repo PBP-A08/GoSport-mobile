@@ -80,6 +80,7 @@ class ProductDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fields = product.fields;
+    final id = product.pk;
     // ================= IMAGE LOGIC =================
     final raw = fields.thumbnail.trim();
     String imageUrl;
@@ -102,18 +103,19 @@ class ProductDetailPage extends StatelessWidget {
           children: [
             // 1. PRODUCT IMAGE
             Text("Tes"),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const RatingListPage(),
-                ),
-              );
-                },
-                child: Text("Tambah ke Keranjang"),
-              ),
+            SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RatingListPage(productId: id,
+                    ),
+                  ),
+                );
+              },
+              child: Text("Tambah ke Keranjang"),
+            ),
             Stack(
               children: [
                 Image.network(
