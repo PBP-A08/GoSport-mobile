@@ -12,9 +12,10 @@ class MyHomePage extends StatelessWidget {
     return [
       ItemHomepage("See Sports Products", Icons.newspaper),
       
-      // The "Collection If" works exactly the same here
       if (role_state == "seller") 
         ItemHomepage("Add Product", Icons.add),
+      if (role_state == "buyer") 
+        ItemHomepage("Add To Cart", Icons.add_shopping_cart),
         
       ItemHomepage("Logout", Icons.logout),
     ];
