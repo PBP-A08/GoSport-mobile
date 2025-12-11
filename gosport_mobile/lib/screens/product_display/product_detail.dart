@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gosport_mobile/models/product.dart';
 import 'package:gosport_mobile/constants/urls.dart';
+import 'package:gosport_mobile/screens/rating/rating_list.dart';
 
 class ProductDetailPage extends StatelessWidget {
   final Product product;
@@ -79,7 +80,6 @@ class ProductDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fields = product.fields;
-
     // ================= IMAGE LOGIC =================
     final raw = fields.thumbnail.trim();
     String imageUrl;
@@ -101,6 +101,19 @@ class ProductDetailPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // 1. PRODUCT IMAGE
+            Text("Tes"),
+              SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const RatingListPage(),
+                ),
+              );
+                },
+                child: Text("Tambah ke Keranjang"),
+              ),
             Stack(
               children: [
                 Image.network(

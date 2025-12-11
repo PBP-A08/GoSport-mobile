@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gosport_mobile/screens/menu.dart';
 import 'package:gosport_mobile/screens/payment/payment_dashboard.dart';
+import 'package:gosport_mobile/screens/rating/rating_list.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:gosport_mobile/constants/urls.dart';
@@ -120,7 +121,16 @@ class LeftDrawer extends StatelessWidget {
                 );
               },
             ),
-
+            ListTile(
+              leading: const Icon(Icons.add_box),
+              title: const Text('Rate Product'),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => RatingListPage()),
+                );
+              },
+            ),
           // LOGOUT BUTTON
           ListTile(
             leading: Icon(Icons.logout, color: Colors.red.shade700),
