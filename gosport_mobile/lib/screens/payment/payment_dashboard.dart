@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gosport_mobile/screens/payment/transaction_card.dart';
+import 'package:gosport_mobile/widgets/left_drawer.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 
 import 'package:gosport_mobile/models/transaction.dart';
@@ -94,6 +95,10 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
   Widget build(BuildContext context) {
     CookieRequest request = context.watch<CookieRequest>();
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Payment"),
+      ),
+      drawer: LeftDrawer(),
       body: FutureBuilder(
         future: fetchTransactions(request),
         builder: (context, AsyncSnapshot snapshot) {
