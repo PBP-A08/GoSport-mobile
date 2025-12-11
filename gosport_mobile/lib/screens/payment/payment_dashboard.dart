@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gosport_mobile/screens/payment/transaction_card.dart';
+import 'package:gosport_mobile/widgets/left_drawer.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 
 import 'package:gosport_mobile/models/transaction.dart';
@@ -26,7 +27,26 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
       paymentStatus: PaymentStatus.due,
       date: DateTime.now(),
       updatedAt: DateTime.now(),
-      entries: [],
+      entries: [
+        TransactionProduct(
+          productId: "",
+          productName: "Ramuan Fokus Model SB-A-01",
+          amount: 20,
+          price: 30000
+        ),
+        TransactionProduct(
+            productId: "",
+            productName: "Bola Homing",
+            amount: 20,
+            price: 30000
+        ),
+        TransactionProduct(
+            productId: "",
+            productName: "Gawang Lipat",
+            amount: 20,
+            price: 30000
+        ),
+      ],
     ),
     Transaction(
       id: "00000000-0000-0000-0000-000000000001",
@@ -37,7 +57,14 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
       paymentStatus: PaymentStatus.due,
       date: DateTime.now(),
       updatedAt: DateTime.now(),
-      entries: [],
+      entries: [
+        TransactionProduct(
+            productId: "",
+            productName: "Bola Homing",
+            amount: 20,
+            price: 30000
+        ),
+      ],
     ),
     Transaction(
       id: "00000000-0000-0000-0000-000000000001",
@@ -48,7 +75,14 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
       paymentStatus: PaymentStatus.due,
       date: DateTime.now(),
       updatedAt: DateTime.now(),
-      entries: [],
+      entries: [
+        TransactionProduct(
+            productId: "",
+            productName: "Bola Homing",
+            amount: 20,
+            price: 30000
+        ),
+      ],
     ),
   ];
 
@@ -61,6 +95,10 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
   Widget build(BuildContext context) {
     CookieRequest request = context.watch<CookieRequest>();
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Payment"),
+      ),
+      drawer: LeftDrawer(),
       body: FutureBuilder(
         future: fetchTransactions(request),
         builder: (context, AsyncSnapshot snapshot) {
