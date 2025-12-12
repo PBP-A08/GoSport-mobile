@@ -7,22 +7,21 @@ class CartApi {
   // GET CART
   static Future<Cart> fetchCart() async {
     final response = await http.get(Uri.parse(Urls.cartJson));
-
     final data = jsonDecode(response.body);
     return Cart.fromJson(data);
   }
 
   // UPDATE QTY
   static Future<void> updateQuantity(int cartItemId, int newQty) async {
-    await http.put(
+    await http.post(
       Uri.parse("${Urls.cartUpdate}$cartItemId/"),
-      headers: {"Content-Type": "application/json"},
-      body: jsonEncode({"quantity": newQty}),
+      headers: {"Content-Type": "application/x-www-form-urlencoded"},
+      body: {"quantity": newQty.toString()},
     );
   }
 
   // DELETE ITEM
   static Future<void> deleteItem(int cartItemId) async {
-    await http.delete(Uri.parse("${Urls.cartDelete}$cartItemId/"));
+    await http.post(Uri.parse("${Urls.cartDelete}$cartItemId/"));
   }
 }
