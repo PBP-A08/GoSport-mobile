@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gosport_mobile/screens/cart/card_dashboard.dart';
+import 'package:gosport_mobile/screens/cart/cart_dashboard.dart';
 import 'package:gosport_mobile/screens/cart/checkout_review.dart';
 import 'package:gosport_mobile/screens/menu.dart';
 import 'package:gosport_mobile/screens/payment/payment_dashboard.dart';
