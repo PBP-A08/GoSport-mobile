@@ -5,21 +5,17 @@ import 'package:gosport_mobile/constants/states.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
-  final String nama = "Sherin Messi"; //nama
-  final String npm = "2406404112"; //npm
-  final String kelas = "B"; //kelas
   List<ItemHomepage> get items {
     return [
       ItemHomepage("See Sports Products", Icons.newspaper),
-      
-      if (role_state == "seller") 
-        ItemHomepage("Add Product", Icons.add),
-      if (role_state == "buyer") 
-        ItemHomepage("Add To Cart", Icons.add_shopping_cart),
-        
+
+      if (role_state == "seller") ItemHomepage("Add Product", Icons.add),
+      if (role_state == "buyer") ItemHomepage("My Cart", Icons.shopping_cart),
+
       ItemHomepage("Logout", Icons.logout),
     ];
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

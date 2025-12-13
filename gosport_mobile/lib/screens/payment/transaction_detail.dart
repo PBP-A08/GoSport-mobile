@@ -2,122 +2,92 @@ import 'package:flutter/material.dart';
 import 'package:gosport_mobile/models/transaction.dart';
 
 class TransactionDetailPage extends StatelessWidget {
-  Transaction transaction;
+  final Transaction transaction;
+
   TransactionDetailPage({super.key, required this.transaction});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Transaction Details"),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
+      appBar: AppBar(title: const Text("Transaction Details")),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              // == TRANSACTION ATTRIBUTES ==
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                elevation: 1,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Table(
-                    children: [
-                      TableRow(
-                        children: [
-                          Text(
-                            "Created at",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-                          Text(
-                            transaction.date.toString(),
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          Text(
-                            "Updated at",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-                          Text(
-                            transaction.updatedAt.toString(),
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          Text(
-                            "# items",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-                          Text(
-                            "${transaction.itemCount}",
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // ===== TRANSACTION SUMMARY =====
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
               ),
+              elevation: 2,
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.calendar_today),
+                    title: const Text("Created at"),
+                    subtitle: Text(
+                      transaction.date.toString().substring(0, 16),
+                    ),
+                  ),
+                  const Divider(height: 0),
+                  ListTile(
+                    leading: const Icon(Icons.update),
+                    title: const Text("Updated at"),
+                    subtitle: Text(
+                      transaction.updatedAt.toString().substring(0, 16),
+                    ),
+                  ),
+                  const Divider(height: 0),
+                  ListTile(
+                    leading: const Icon(Icons.shopping_bag),
+                    title: const Text("Total Items"),
+                    subtitle: Text("${transaction.itemCount} items"),
+                  ),
+                ],
+              ),
+            ),
 
-              // == TRANSACTION ENTRIES ==
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Text("Items", style: TextStyle(fontSize: 24)),
-                      Column(
-                        children: transaction.entries.map((entry) {
-                          return Row(
-                            children: [
-                              Expanded(child: Text(entry.productName)),
-                              const SizedBox(width: 10.0),
-                              Text("${entry.amount}"),
-                              const SizedBox(width: 10.0),
-                              Text("${entry.totalPrice}"),
-                            ],
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                  ),
-                ),
+            const SizedBox(height: 24),
+
+            // ===== TRANSACTION ITEMS =====
+            const Text(
+              "Items",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
               ),
-            ],
-          ),
+              elevation: 2,
+              child: Column(
+                children: transaction.entries.map((entry) {
+                  return Column(
+                    children: [
+                      ListTile(
+                        title: Text(
+                          entry.productName,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text("Qty: ${entry.amount}"),
+                        trailing: Text(
+                          "Rp ${entry.totalPrice}",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                      if (entry != transaction.entries.last)
+                        const Divider(height: 0),
+                    ],
+                  );
+                }).toList(),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -101,21 +101,6 @@ class ProductDetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 1. PRODUCT IMAGE
-            Text("Tes"),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => RatingListPage(productId: id,
-                    ),
-                  ),
-                );
-              },
-              child: Text("Tambah ke Keranjang"),
-            ),
             Stack(
               children: [
                 Image.network(

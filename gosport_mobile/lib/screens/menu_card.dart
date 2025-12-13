@@ -20,16 +20,13 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Material(
-      // Menentukan warna latar belakang dari tema aplikasi.
       color: Color(0xFF9D0C0C),
-      // Membuat sudut kartu melengkung.
       borderRadius: BorderRadius.circular(12),
 
       child: InkWell(
-        // Aksi ketika kartu ditekan.
         onTap: () async {
-          // Menampilkan pesan SnackBar saat kartu ditekan.
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
           if (item.name == "Add Product") {
             Navigator.push(
               context,
@@ -40,12 +37,9 @@ class ItemCard extends StatelessWidget {
               context,
               MaterialPageRoute(builder: (context) => const ProductListPage()),
             );
-          }
-          // Add this after your previous if statements
-          else if (item.name == "Logout") {
-            // TODO: Replace the URL with your app's URL and don't forget to add a trailing slash (/)!
-            // To connect Android emulator with Django on localhost, use URL http://10.0.2.2/
-
+          } else if (item.name == "My Cart") {
+            Navigator.pushNamed(context, '/cart');
+          } else if (item.name == "Logout") {
             final response = await request.logout(Urls.logout);
             String message = response["message"];
             if (context.mounted) {
