@@ -103,7 +103,7 @@ class LeftDrawer extends StatelessWidget {
           // CART BUTTON
           ListTile(
             leading: const Icon(Icons.shopping_cart),
-            title: const Text("Keranjang"),
+            title: const Text("Cart"),
             onTap: () {
               Navigator.pop(context); // Tutup drawer
               Navigator.pushNamed(context, '/cart');
