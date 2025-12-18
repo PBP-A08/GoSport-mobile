@@ -1,5 +1,5 @@
 class Urls {
-  static const bool isDevelopment = true;
+  static const bool isDevelopment = false;
 
   static const String baseUrl = isDevelopment
       ? 'http://localhost:8000' // Local
@@ -17,7 +17,7 @@ class Urls {
   static const String deleteAccount = '$baseUrl/profile/delete-json/';
 
   // Cart endpoints
-  static const String cartJson = '$baseUrl/cart/api/cart/';  
+  static const String cartJson = '$baseUrl/cart/api/cart/';
   static const String cartAdd = '$baseUrl/cart/api/cart/add/';
   static const String cartUpdate = '$baseUrl/cart/api/cart/update/';
   static const String cartDelete = '$baseUrl/cart/api/cart/remove/';
