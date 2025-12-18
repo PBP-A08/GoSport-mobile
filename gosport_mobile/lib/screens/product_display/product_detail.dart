@@ -299,6 +299,26 @@ class ProductDetailPage extends StatelessWidget {
                     textAlign: TextAlign.justify,
                   ),
                   const SizedBox(height: 20),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RatingListPage(
+                            productId: id,
+                            productName: fields.productName,
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "All review",
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 16, 
+                        fontWeight: FontWeight.bold,
+                      ),),
+                  ),
                   // Listed date
                   Text(
                     "Listed on: ${_formatDate(fields.createdAt)}",
@@ -314,32 +334,45 @@ class ProductDetailPage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
+            if (role == 'buyer')
+              Expanded(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: fields.stock > 0
+                        ? Colors.amber
+                        : Colors.grey,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RatingFormPage(
+                          productId: id,
+                          productName: fields.productName,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    "Rate",
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
             Expanded(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: fields.stock > 0 ? Colors.amber : Colors.grey,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                onPressed: () {Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => RatingFormPage(productId: id, productName: fields.productName),
-                  ),
-                );
-                },
-                child: Text(
-                  "Rate",
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-              )
-            ),
-            if (role != 'admin')
-              Expanded(child: ElevatedButton( style: ElevatedButton.styleFrom(
-                  backgroundColor: fields.stock > 0 ? Colors.red[700] : Colors.grey,
+                  backgroundColor: fields.stock > 0
+                      ? Colors.red[700]
+                      : Colors.grey,
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
@@ -347,22 +380,25 @@ class ProductDetailPage extends StatelessWidget {
                   ),
                 ),
                 onPressed: fields.stock > 0
-                  ? () async {
-                      await CartApi.addToCart(request,id);
+                    ? () async {
+                        await CartApi.addToCart(request, id);
 
-                      if (!context.mounted) return;
+                        if (!context.mounted) return;
 
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Added to Cart")),
-                      );
-                    }
-                  : null,
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Added to Cart")),
+                        );
+                      }
+                    : null,
                 child: Text(
                   fields.stock > 0 ? "Add to Cart" : "Out of Stock",
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              )
-            )
+              ),
+            ),
           ],
         ),
       ),

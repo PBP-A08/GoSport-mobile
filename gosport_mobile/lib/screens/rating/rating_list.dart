@@ -8,7 +8,12 @@ import 'package:gosport_mobile/screens/rating/rating_card.dart';
 
 class RatingListPage extends StatefulWidget {
   final String productId;
-  const RatingListPage({super.key, required this.productId});
+  final String productName;
+  const RatingListPage({
+    super.key,
+    required this.productId,
+    required this.productName,
+  });
 
   @override
   State<RatingListPage> createState() => _RatingListPageState();
@@ -27,8 +32,11 @@ class _RatingListPageState extends State<RatingListPage> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Scaffold(
-      appBar: AppBar(centerTitle: true),
-      drawer: const LeftDrawer(),
+      appBar: AppBar(
+        title: Text("Review for ${widget.productName}"),
+        centerTitle: true,
+        backgroundColor: Colors.red[700],
+      ),
       body: FutureBuilder<Rating>(
         future: fetchRating(request),
         builder: (context, snapshot) {
@@ -36,19 +44,14 @@ class _RatingListPageState extends State<RatingListPage> {
             return const Center(child: CircularProgressIndicator());
           } else {
             final rating = snapshot.data!;
-            // update judul AppBar dengan nama produk
             return Scaffold(
-              appBar: AppBar(
-                title: Text("Review for ${rating.productName}"),
-                centerTitle: true,
-              ),
               body: rating.reviews.isEmpty
-                  ? const Center(child: Text("Belum ada rating."))
+                  ? const Center(child: Text("There's no review for this product.",
+                  style: TextStyle(fontSize: 20, color: Color(0xff59A5D8)),))
                   : ListView.builder(
                       itemCount: rating.reviews.length,
-                      itemBuilder: (_, index) => RatingCard(
-                        rev: rating.reviews[index],
-                      ),
+                      itemBuilder: (_, index) =>
+                          RatingCard(rev: rating.reviews[index]),
                     ),
             );
           }
