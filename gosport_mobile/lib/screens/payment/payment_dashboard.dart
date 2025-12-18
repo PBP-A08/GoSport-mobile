@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gosport_mobile/constants/urls.dart';
 import 'package:gosport_mobile/screens/payment/transaction_card.dart';
 import 'package:gosport_mobile/widgets/left_drawer.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -20,11 +21,11 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
   final List<Transaction> fakeTransactionData = [
     Transaction(
       id: "00000000-0000-0000-0000-000000000001",
-      buyerId: "00000000-0000-0000-0000-000000000001",
+      buyerId: 1,
       amountPaid: 500000.0,
       totalPrice: 600000.0,
       amountDue: 100000.0,
-      paymentStatus: PaymentStatus.due,
+      paymentStatus: PaymentStatus.pending,
       date: DateTime.now(),
       updatedAt: DateTime.now(),
       entries: [
@@ -50,11 +51,11 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
     ),
     Transaction(
       id: "00000000-0000-0000-0000-000000000001",
-      buyerId: "00000000-0000-0000-0000-000000000001",
+      buyerId: 1,
       amountPaid: 500000.0,
       totalPrice: 600000.0,
       amountDue: 100000.0,
-      paymentStatus: PaymentStatus.due,
+      paymentStatus: PaymentStatus.pending,
       date: DateTime.now(),
       updatedAt: DateTime.now(),
       entries: [
@@ -68,11 +69,11 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
     ),
     Transaction(
       id: "00000000-0000-0000-0000-000000000001",
-      buyerId: "00000000-0000-0000-0000-000000000001",
+      buyerId: 1,
       amountPaid: 500000.0,
       totalPrice: 600000.0,
       amountDue: 100000.0,
-      paymentStatus: PaymentStatus.due,
+      paymentStatus: PaymentStatus.pending,
       date: DateTime.now(),
       updatedAt: DateTime.now(),
       entries: [
@@ -87,8 +88,18 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
   ];
 
   Future<List<Transaction>> fetchTransactions(CookieRequest request) async {
-    // Return fake data for now
-    return fakeTransactionData;
+    final response = await request.get(Urls.transactionsJson);
+
+    var data = response;
+
+    List<Transaction> transactions = [];
+    for (var d in data) {
+      if (d != null) {
+        transactions.add(Transaction.fromJson(d));
+      }
+    }
+
+    return transactions;
   }
   
   @override
@@ -103,6 +114,7 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
         future: fetchTransactions(request),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {
+            debugPrint('Snapshot error: ${snapshot.error}');
             return Text("Oh tidak");
           } else if (!snapshot.hasData) {
             return Text("Loading...");

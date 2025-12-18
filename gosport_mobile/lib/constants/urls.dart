@@ -24,4 +24,6 @@ class Urls {
   static const String json = '$baseUrl/json/';
 
   static const String ratingJson = '$baseUrl/rating/json/';
+
+  static const String transactionsJson = '$baseUrl/payment/transactions/json/';
 }

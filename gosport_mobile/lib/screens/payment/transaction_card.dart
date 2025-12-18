@@ -29,7 +29,7 @@ class TransactionCard extends StatelessWidget {
           child: Row(
             children: [
               Icon(
-                transaction.paymentStatus == PaymentStatus.paid
+                transaction.paymentStatus == PaymentStatus.complete
                     ? Icons.check
                     : Icons.attach_money,
                 size: 48,
