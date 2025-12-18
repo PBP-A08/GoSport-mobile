@@ -48,27 +48,6 @@ class _RatingListPageState extends State<RatingListPage> {
                       itemCount: rating.reviews.length,
                       itemBuilder: (_, index) => RatingCard(
                         rev: rating.reviews[index],
-                        onTap: () {
-                          if (rating.reviews[index].isOwner) {
-                            ScaffoldMessenger.of(context)
-                              ..hideCurrentSnackBar()
-                              ..showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    "You clicked on ${rating.productName}",
-                                  ),
-                                ),
-                              );
-                          } else {
-                            ScaffoldMessenger.of(context)
-                              ..hideCurrentSnackBar()
-                              ..showSnackBar(
-                                const SnackBar(
-                                  content: Text("Not your review"),
-                                ),
-                              );
-                          }
-                        },
                       ),
                     ),
             );

@@ -3,6 +3,7 @@ import 'package:gosport_mobile/models/product.dart';
 import 'package:gosport_mobile/constants/urls.dart';
 import 'package:gosport_mobile/screens/cart/cart_api.dart';
 import 'package:gosport_mobile/screens/rating/rating_list.dart';
+import 'package:gosport_mobile/screens/rating/rating_form.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -85,6 +86,7 @@ class ProductDetailPage extends StatelessWidget {
     final request = context.read<CookieRequest>();
     final fields = product.fields;
     final id = product.pk;
+    final role = request.jsonData['role'];
     // ================= IMAGE LOGIC =================
     final raw = fields.thumbnail.trim();
     String imageUrl;
@@ -310,30 +312,58 @@ class ProductDetailPage extends StatelessWidget {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: fields.stock > 0 ? Colors.red[700] : Colors.grey,
-            foregroundColor: Colors.white,
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-          onPressed: fields.stock > 0
-            ? () async {
-                await CartApi.addToCart(request,id);
-
-                if (!context.mounted) return;
-
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Added to Cart")),
+        child: Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: fields.stock > 0 ? Colors.amber : Colors.grey,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                onPressed: () {Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RatingFormPage(productId: id, productName: fields.productName),
+                  ),
                 );
-              }
-            : null,
-          child: Text(
-            fields.stock > 0 ? "Add to Cart" : "Out of Stock",
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
+                },
+                child: Text(
+                  "Rate",
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              )
+            ),
+            if (role != 'admin')
+              Expanded(child: ElevatedButton( style: ElevatedButton.styleFrom(
+                  backgroundColor: fields.stock > 0 ? Colors.red[700] : Colors.grey,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                onPressed: fields.stock > 0
+                  ? () async {
+                      await CartApi.addToCart(request,id);
+
+                      if (!context.mounted) return;
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Added to Cart")),
+                      );
+                    }
+                  : null,
+                child: Text(
+                  fields.stock > 0 ? "Add to Cart" : "Out of Stock",
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              )
+            )
+          ],
         ),
       ),
     );
