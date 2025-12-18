@@ -19,7 +19,7 @@ jobs:
       - name: Get version from pubspec.yaml
         id: version
         run: |
-          echo "version=$(grep '^version:' GoSport-mobile/pubspec.yaml | cut -d ' ' -f2)" >> $GITHUB_OUTPUT
+          echo "version=$(grep '^version:' pubspec.yaml | cut -d ' ' -f2)" >> $GITHUB_OUTPUT
 
       - name: Setup Java
         uses: actions/setup-java@v3
@@ -33,14 +33,10 @@ jobs:
           channel: stable
 
       - name: Get packages
-        run: |
-          cd GoSport-mobile
-          flutter pub get
+        run: flutter pub get
 
       - name: Build APK
-        run: |
-          cd GoSport-mobile
-          flutter build apk --split-per-abi
+        run: flutter build apk --split-per-abi
 
       - name: Get current date
         id: date
@@ -55,7 +51,7 @@ jobs:
       - name: Release APK
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "GoSport-mobile/build/app/outputs/flutter-apk/*.apk"
+          artifacts: "build/app/outputs/flutter-apk/*.apk"
           body: "Published at ${{ steps.date.outputs.date }}"
           name: "v${{ steps.version.outputs.version }} - ${{ steps.date.outputs.date }}"
           tag: ${{ steps.tag.outputs.tag }}
