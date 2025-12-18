@@ -18,75 +18,6 @@ class PaymentDashboard extends StatefulWidget {
 
 class _PaymentDashboardState extends State<PaymentDashboard> {
 
-  final List<Transaction> fakeTransactionData = [
-    Transaction(
-      id: "00000000-0000-0000-0000-000000000001",
-      buyerId: 1,
-      amountPaid: 500000.0,
-      totalPrice: 600000.0,
-      amountDue: 100000.0,
-      paymentStatus: PaymentStatus.pending,
-      date: DateTime.now(),
-      updatedAt: DateTime.now(),
-      entries: [
-        TransactionProduct(
-          productId: "",
-          productName: "Ramuan Fokus Model SB-A-01",
-          amount: 20,
-          price: 30000
-        ),
-        TransactionProduct(
-            productId: "",
-            productName: "Bola Homing",
-            amount: 20,
-            price: 30000
-        ),
-        TransactionProduct(
-            productId: "",
-            productName: "Gawang Lipat",
-            amount: 20,
-            price: 30000
-        ),
-      ],
-    ),
-    Transaction(
-      id: "00000000-0000-0000-0000-000000000001",
-      buyerId: 1,
-      amountPaid: 500000.0,
-      totalPrice: 600000.0,
-      amountDue: 100000.0,
-      paymentStatus: PaymentStatus.pending,
-      date: DateTime.now(),
-      updatedAt: DateTime.now(),
-      entries: [
-        TransactionProduct(
-            productId: "",
-            productName: "Bola Homing",
-            amount: 20,
-            price: 30000
-        ),
-      ],
-    ),
-    Transaction(
-      id: "00000000-0000-0000-0000-000000000001",
-      buyerId: 1,
-      amountPaid: 500000.0,
-      totalPrice: 600000.0,
-      amountDue: 100000.0,
-      paymentStatus: PaymentStatus.pending,
-      date: DateTime.now(),
-      updatedAt: DateTime.now(),
-      entries: [
-        TransactionProduct(
-            productId: "",
-            productName: "Bola Homing",
-            amount: 20,
-            price: 30000
-        ),
-      ],
-    ),
-  ];
-
   Future<List<Transaction>> fetchTransactions(CookieRequest request) async {
     final response = await request.get(Urls.transactionsJson);
 
@@ -115,16 +46,20 @@ class _PaymentDashboardState extends State<PaymentDashboard> {
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {
             debugPrint('Snapshot error: ${snapshot.error}');
-            return Text("Oh tidak");
+            return Center(child: Text("Oh tidak"));
           } else if (!snapshot.hasData) {
-            return Text("Loading...");
+            return Center(child: Text("Loading..."));
+          } else if (snapshot.data!.length == 0){
+            return Center(child: Text("Belum ada transaksi."));
           } else {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (_, index) {
-                final Transaction transaction = snapshot.data![index];
-                return TransactionCard(transaction: transaction);
-              },
+            return Center(
+              child: ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (_, index) {
+                  final Transaction transaction = snapshot.data![index];
+                  return TransactionCard(transaction: transaction);
+                },
+              ),
             );
           }
         },
