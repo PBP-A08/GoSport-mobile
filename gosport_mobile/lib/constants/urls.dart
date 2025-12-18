@@ -1,9 +1,9 @@
 class Urls {
-  static const bool isDevelopment = true;
+  static const bool isDevelopment = false;
 
   static const String baseUrl = isDevelopment
       ? 'http://localhost:8000' // Local
-      : 'http://sherin-khaira-football-site.pbp.cs.ui.ac.id'; // PWS Production
+      : 'https://sherin-khaira-football-site.pbp.cs.ui.ac.id'; // PWS Production
 
   // Auth endpoints
   static const String login = '$baseUrl/auth/login/';
@@ -17,9 +17,10 @@ class Urls {
   static const String deleteAccount = '$baseUrl/profile/delete-json/';
 
   // Cart endpoints
-  static const String cartJson = '$baseUrl/cart/json/';
-  static const String cartUpdate = '$baseUrl/cart/update/';
-  static const String cartDelete = '$baseUrl/cart/delete/';
+  static const String cartJson = '$baseUrl/cart/api/cart/';  
+  static const String cartAdd = '$baseUrl/cart/api/cart/add/';
+  static const String cartUpdate = '$baseUrl/cart/api/cart/update/';
+  static const String cartDelete = '$baseUrl/cart/api/cart/remove/';
 
   static const String json = '$baseUrl/json/';
 

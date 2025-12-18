@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gosport_mobile/models/product.dart';
 import 'package:gosport_mobile/constants/urls.dart';
+import 'package:gosport_mobile/screens/cart/cart_api.dart';
 import 'package:gosport_mobile/screens/rating/rating_list.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetailPage extends StatelessWidget {
   final Product product;
@@ -79,6 +82,7 @@ class ProductDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.read<CookieRequest>();
     final fields = product.fields;
     final id = product.pk;
     // ================= IMAGE LOGIC =================
@@ -316,14 +320,16 @@ class ProductDetailPage extends StatelessWidget {
             ),
           ),
           onPressed: fields.stock > 0
-              ? () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Add to cart feature coming soon!"),
-                    ),
-                  );
-                }
-              : null,
+            ? () async {
+                await CartApi.addToCart(request,id);
+
+                if (!context.mounted) return;
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("Added to Cart")),
+                );
+              }
+            : null,
           child: Text(
             fields.stock > 0 ? "Add to Cart" : "Out of Stock",
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),

@@ -11,6 +11,7 @@ class MyHomePage extends StatelessWidget {
 
       if (role_state == "seller") ItemHomepage("Add Product", Icons.add),
       if (role_state == "buyer") ItemHomepage("My Cart", Icons.shopping_cart),
+      if (role_state == "admin") ItemHomepage("Payment", Icons.payments),
 
       ItemHomepage("Logout", Icons.logout),
     ];

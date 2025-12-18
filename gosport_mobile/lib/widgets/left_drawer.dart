@@ -103,7 +103,7 @@ class LeftDrawer extends StatelessWidget {
           // CART BUTTON
           ListTile(
             leading: const Icon(Icons.shopping_cart),
-            title: const Text("Keranjang"),
+            title: const Text("Cart"),
             onTap: () {
               Navigator.pop(context); // Tutup drawer
               Navigator.pushNamed(context, '/cart');
@@ -136,14 +136,15 @@ class LeftDrawer extends StatelessWidget {
 
               if (!context.mounted) return;
 
-              if (response['status'] == true) {
+              if (response['status'] == 'success') {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Successfully logged out!')),
                 );
 
-                Navigator.pushReplacement(
+                Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => const LoginPage()),
+                  (route) => false,
                 );
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(

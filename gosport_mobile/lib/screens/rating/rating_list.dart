@@ -27,7 +27,6 @@ class _RatingListPageState extends State<RatingListPage> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Scaffold(
-      // jangan langsung kasih judul statis di AppBar
       appBar: AppBar(centerTitle: true),
       drawer: const LeftDrawer(),
       body: FutureBuilder<Rating>(
