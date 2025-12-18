@@ -1,4 +1,4 @@
-# GoSport(mobile) - A08 PBP
+# GoSport (mobile) - A08 PBP
 
 ## Anggota Kelompok
 - Carmella Geraldine Sutrisna
@@ -33,7 +33,7 @@ Tujuan utama kami adalah mendukung gaya hidup sehat masyarakat dengan menyediaka
    - Update: Update status pembayaran.
    - Delete: Batalkan pembayaran.
 7. Ulasan Produk - Pengguna dapat memberi rating dan review pada produk. (Yufan)
-   - Create: Tambah ulasan & rating (bintang 1-5) produk.
+   - Create: Tambah ulasan & rrating (bintang 1-5) produk.
    - Read: Lihat daftar ulasan produk.
    - Update: Edit ulasan yang diberi user (pembeli) tsb.
    - Delete: Hapus ulasan.
@@ -49,45 +49,8 @@ Dataset mencakup 100+ produk olahraga dengan atribut seperti:
 - Product: Kategori atau jenis produk olahraga (misalnya: Sepatu, Bola, Raket, dll).
 
 ## Jenis Pengguna
-1. Admin - Mengelola data produk, dan transaksi.
-2. Penjual - Dapat login, register, dan menambah produk.
-3. Pembeli - Dapat login, register, membeli produk, dan memberikan ulasan.
+1. Admin - Mengelola data produk, transaksi, dan pengguna.
+2. Pengguna Terdaftar - Dapat login, membeli produk, memberikan ulasan.
 
-## Alur Pengintegrasian
-Pengintegrasian aplikasi Flutter dengan web service (backend Django waktu Proyek Tengah Semester) dilakukan melalui serangkaian request–response berbasis JSON. Alurnya sebagai berikut:
-1. Login
-   - Flutter mengirim POST JSON berisi kredensial (email/username & password).
-   - Server mengembalikan JSON user berisi status login, token/session, dan data profil dasar.
-2. Register
-   - Flutter melakukan POST JSON data pendaftaran.
-   - Server membalas dengan JSON sukses atau pesan kesalahan.
-3. Produk
-   - Flutter melakukan GET JSON ke endpoint produk.
-   - Server mengembalikan JSON list produk yang ditampilkan di UI aplikasi.
-4. Keranjang – Tambah
-   - Flutter mengirim POST JSON dengan informasi produk yang ingin dimasukkan ke keranjang.
-   - Server menyimpan update dan merespon JSON status sukses.
-5. Keranjang – Lihat Isi
-   - Flutter menembak GET JSON untuk mengambil daftar item keranjang.
-   - Server mengembalikan JSON isi keranjang untuk ditampilkan pada halaman Cart.
-6. Keranjang – Update
-   - Flutter mengirim POST JSON perubahan kuantitas.
-   - Server membalas dengan JSON kondisi terbaru keranjang.
-7. Checkout
-   - Flutter mengirim POST JSON permintaan checkout.
-   - Server membuat transaksi dan mengembalikan JSON transaksi, termasuk ID transaksi, total harga, dan status.
-8. Transaksi – Riwayat
-   - Flutter melakukan GET JSON untuk mengambil riwayat transaksi user.
-   - Server membalas dengan JSON list transaksi.
-9. Review – Tambah
-    - Flutter mengirim POST JSON berisi ulasan untuk suatu produk.
-    - Server menyimpan review dan mengembalikan JSON sukses.
-10. Review – List
-    - Flutter melakukan GET JSON ke endpoint review.
-    - Server mengembalikan JSON list ulasan terkait produk.
-   
-## Link Figma
-https://www.figma.com/design/fJYS62TdZ2JrQ0HYZ1bBDr/GoSport?node-id=0-1&t=Gurqi3k1Xt31KbDU-1
-
-## Link Progress Plan
-https://docs.google.com/spreadsheets/d/1MuF_YgV212tpJbHWSp8vy-Kh_pzi_pVWmywyIWC_wN8/edit?usp=sharing
+## Link Deployment (PWS)
+https://pbp.cs.ui.ac.id/sherin.khaira/football-site
