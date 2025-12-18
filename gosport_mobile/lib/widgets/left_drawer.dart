@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gosport_mobile/screens/menu.dart';
 import 'package:gosport_mobile/screens/payment/payment_dashboard.dart';
-import 'package:gosport_mobile/screens/rating/rating_list.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:gosport_mobile/constants/urls.dart';
@@ -103,7 +102,7 @@ class LeftDrawer extends StatelessWidget {
           // CART BUTTON
           ListTile(
             leading: const Icon(Icons.shopping_cart),
-            title: const Text("Keranjang"),
+            title: const Text("Cart"),
             onTap: () {
               Navigator.pop(context); // Tutup drawer
               Navigator.pushNamed(context, '/cart');

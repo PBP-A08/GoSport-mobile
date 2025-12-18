@@ -9,6 +9,11 @@ class TransactionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final (statusIcon, statusLine, statusColor) = transaction.paymentStatus == PaymentStatus.complete
+        ? (Icons.check, "Completed", Colors.green[900])
+        : transaction.amountDue <= 0
+        ? (Icons.pending_actions, "Fully paid, awaiting completion", Colors.blue[900])
+        : (Icons.attach_money, "Not fully paid yet", Colors.yellow[900]);
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
@@ -29,9 +34,7 @@ class TransactionCard extends StatelessWidget {
           child: Row(
             children: [
               Icon(
-                transaction.paymentStatus == PaymentStatus.paid
-                    ? Icons.check
-                    : Icons.attach_money,
+                statusIcon,
                 size: 48,
               ),
               SizedBox(width: 4),
@@ -46,13 +49,33 @@ class TransactionCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    "${transaction.itemCount} items",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.normal,
-                    ),
+                  Row(
+                    children: [
+                      Text(
+                        "${transaction.itemCount} items",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      SizedBox(width: 4.0),
+                      Text(
+                        "·",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: 4.0),
+                      Text(
+                        statusLine,
+                        style: TextStyle(
+                          color: statusColor,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

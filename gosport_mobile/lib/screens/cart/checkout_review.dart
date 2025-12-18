@@ -45,7 +45,7 @@ class _CheckoutReviewScreenState extends State<CheckoutReviewScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text("Gagal melakukan checkout")));
+      ).showSnackBar(const SnackBar(content: Text("Failed to checkout")));
     }
   }
 
