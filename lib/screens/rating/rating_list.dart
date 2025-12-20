@@ -3,7 +3,6 @@ import 'package:gosport_mobile/models/rating.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:gosport_mobile/constants/urls.dart';
 import 'package:provider/provider.dart';
-import 'package:gosport_mobile/widgets/left_drawer.dart';
 import 'package:gosport_mobile/screens/rating/rating_card.dart';
 
 class RatingListPage extends StatefulWidget {
@@ -29,6 +28,7 @@ class _RatingListPageState extends State<RatingListPage> {
     return ratings;
   }
 
+  @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Scaffold(
@@ -51,7 +51,7 @@ class _RatingListPageState extends State<RatingListPage> {
                   : ListView.builder(
                       itemCount: rating.reviews.length,
                       itemBuilder: (_, index) =>
-                          RatingCard(rev: rating.reviews[index]),
+                          RatingCard(rev: rating.reviews[index],rate: rating,),
                     ),
             );
           }

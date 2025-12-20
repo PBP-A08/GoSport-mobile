@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:gosport_mobile/widgets/left_drawer.dart';
 import 'package:gosport_mobile/constants/urls.dart';
 
 class RatingFormPage extends StatefulWidget {
@@ -101,28 +100,28 @@ class _RatingFormPageState extends State<RatingFormPage> {
                         } else {
                           if (_formKey.currentState!.validate()) {
                             final response = await request.postJson(
-                              "${Urls.baseUrl}/rating/add-review-flutter/${widget.productId}",
+                              "${Urls.baseUrl}/rating/add-and-edit-review-flutter/${widget.productId}",
                               jsonEncode(<String, String>{
                                 'rate': _rate.toString(),
                                 'review': _review,
                               }),
                             );
                             if (context.mounted) {
-                          if (response['status'] == 'success') {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text("Thank you for the review"),
-                              ),
-                            );
-                            Navigator.pop(context);
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text("Failed to save your review."),
-                              ),
-                            );
-                          }
-                          }
+                              if (response['status'] == 'success') {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("Thank you for the review"),
+                                  ),
+                                );
+                                Navigator.pop(context);
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Failed to save your review."),
+                                  ),
+                                );
+                              }
+                            }
                           }
                         }
                       }

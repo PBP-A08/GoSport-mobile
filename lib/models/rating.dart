@@ -10,20 +10,24 @@ String ratingToJson(Rating data) => json.encode(data.toJson());
 
 class Rating {
     String productName;
+    String id;
     List<Review> reviews;
 
     Rating({
         required this.productName,
+        required this.id,
         required this.reviews,
     });
 
     factory Rating.fromJson(Map<String, dynamic> json) => Rating(
         productName: json["product_name"],
+        id: json["id"],
         reviews: List<Review>.from(json["reviews"].map((x) => Review.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
         "product_name": productName,
+        "id": id,
         "reviews": List<dynamic>.from(reviews.map((x) => x.toJson())),
     };
 }
