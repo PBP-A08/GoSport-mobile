@@ -16,17 +16,24 @@ class CartDashboard extends StatefulWidget {
 class _CartDashboardState extends State<CartDashboard> {
   Cart? cart;
   bool isLoading = true;
+  late CookieRequest request;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    request = context.read<CookieRequest>();
+  }
 
   @override
   void initState() {
     super.initState();
-    loadCart();
+    Future.microtask(loadCart);
   }
 
   Future<void> loadCart() async {
-    final request = context.read<CookieRequest>();
     final data = await CartApi.fetchCart(request);
 
+    if (!mounted) return;
     setState(() {
       cart = data;
       isLoading = false;

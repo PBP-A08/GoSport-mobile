@@ -13,39 +13,57 @@ class CheckoutReviewScreen extends StatefulWidget {
 class _CheckoutReviewScreenState extends State<CheckoutReviewScreen> {
   bool isLoading = true;
   Map<String, dynamic>? data;
+  late CookieRequest request;
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    request = context.read<CookieRequest>();
     fetchCheckoutReview();
   }
 
   Future<void> fetchCheckoutReview() async {
-    final request = context.read<CookieRequest>();
+    try {
+      final response = await request.get(
+        "${Urls.baseUrl}/cart/checkout-review-json/",
+      );
 
-    final response = await request.get(
-      "${Urls.baseUrl}/cart/checkout-review-json/",
-    );
+      if (!mounted) return;
 
-    setState(() {
-      data = response;
-      isLoading = false;
-    });
+      setState(() {
+        data = response;
+        isLoading = false;
+      });
+    } catch (e) {
+      debugPrint("Checkout review error: $e");
+    }
   }
 
   Future<void> placeOrder() async {
-    final request = context.read<CookieRequest>();
+    try {
+      final response = await request.post(
+        Urls.cartCheckout,
+        {},
+      );
 
-    final response = await request.post("${Urls.baseUrl}/cart/checkout/", {});
+      if (!mounted) return;
 
-    if (response["success"] == true) {
-      if (!mounted) return;
-      Navigator.pushReplacementNamed(context, '/payment');
-    } else {
-      if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Failed to checkout")));
+      if (response["success"] == true) {
+        Navigator.pushReplacementNamed(
+          context, 
+          '/payment',
+          arguments: {
+            "transaction_id": response["transaction_id"],
+            "total": response["total"],
+          },
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Failed to checkout")),
+        );
+      }
+    } catch (e) {
+      debugPrint("Checkout error: $e");
     }
   }
 
@@ -92,7 +110,7 @@ class _CheckoutReviewScreenState extends State<CheckoutReviewScreen> {
                               Text(item["product_name"]),
                               Text("Qty: ${item["quantity"]}"),
                               Text(
-                                "Subtotal: Rp ${item["subtotal"]}",
+                                "Subtotal: \$ ${item["subtotal"]}",
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -115,7 +133,7 @@ class _CheckoutReviewScreenState extends State<CheckoutReviewScreen> {
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       Text(
-                        "Rp ${data!["total"]}",
+                        "\$ ${data!["total"]}",
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ],

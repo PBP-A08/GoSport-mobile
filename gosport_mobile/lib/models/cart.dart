@@ -13,7 +13,7 @@ class Cart {
 
   factory Cart.fromJson(Map<String, dynamic> json) {
     return Cart(
-      id: json['id'],
+      id: json['id'] ?? 0,
       totalItems: json['total_items'],
       totalPrice: double.parse(json['total_price'].toString()),
       items: (json['items'] as List)
@@ -28,7 +28,7 @@ class CartItem {
   final int quantity;
   final double price;
   final double subtotal;
-  final int productId;
+  final String productId;
   final String productName;
 
   CartItem({
@@ -42,12 +42,12 @@ class CartItem {
 
   factory CartItem.fromJson(Map<String, dynamic> json) {
     return CartItem(
-      id: json['id'] ?? 0,
+      id: json['item_id'],
       quantity: json['quantity'] ?? 0,
       price: double.parse((json['price'] ?? 0).toString()),
       subtotal: double.parse((json['subtotal'] ?? 0).toString()),
-      productId: json['product']?['id'] ?? 0,
-      productName: json['product']?['product_name'] ?? 'Unknown Product',
+      productId: json['product_id'],
+      productName: json['product_name'] ?? 'Unknown Product',
     );
   }
 }

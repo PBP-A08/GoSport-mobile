@@ -21,6 +21,8 @@ class Urls {
   static const String cartAdd = '$baseUrl/cart/api/cart/add/';
   static const String cartUpdate = '$baseUrl/cart/api/cart/update/';
   static const String cartDelete = '$baseUrl/cart/api/cart/remove/';
+  static const String cartCheckout = '$baseUrl/cart/api/cart/checkout/';
+  static const String cartCheckoutReview = '$baseUrl/cart/checkout-review-json/';
 
   static const String json = '$baseUrl/json/';
 
