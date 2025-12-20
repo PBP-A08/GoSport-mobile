@@ -17,7 +17,7 @@ class Urls {
   static const String deleteAccount = '$baseUrl/profile/delete-json/';
 
   // Cart endpoints
-  static const String cartJson = '$baseUrl/cart/api/cart/';  
+  static const String cartJson = '$baseUrl/cart/api/cart/';
   static const String cartAdd = '$baseUrl/cart/api/cart/add/';
   static const String cartUpdate = '$baseUrl/cart/api/cart/update/';
   static const String cartDelete = '$baseUrl/cart/api/cart/remove/';
@@ -27,4 +27,6 @@ class Urls {
   static const String json = '$baseUrl/json/';
 
   static const String ratingJson = '$baseUrl/rating/json/';
+
+  static const String transactionsJson = '$baseUrl/payment/transactions/json/';
 }
