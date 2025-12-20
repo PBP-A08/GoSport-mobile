@@ -43,3 +43,10 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Flutter desktop platforms (DO NOT COMMIT)
+linux/
+macos/
+windows/
+gosport_mobile/build/
+
