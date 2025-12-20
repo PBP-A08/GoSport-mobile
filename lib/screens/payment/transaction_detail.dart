@@ -1,13 +1,89 @@
 import 'package:flutter/material.dart';
 import 'package:gosport_mobile/models/transaction.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:gosport_mobile/constants/urls.dart';
 
-class TransactionDetailPage extends StatelessWidget {
-  final Transaction transaction;
+class TransactionDetailPage extends StatefulWidget {
 
-  TransactionDetailPage({super.key, required this.transaction});
+  final String transactionId;
+  TransactionDetailPage({super.key, required this.transactionId});
+
+  @override
+  State<TransactionDetailPage> createState() => _TransactionDetailPageState(transactionId: transactionId);
+
+}
+
+class _TransactionDetailPageState extends State<TransactionDetailPage> {
+
+  final String transactionId;
+  bool isLoading = true;
+  bool isError = false;
+
+  late Transaction transaction;
+
+  _TransactionDetailPageState({required this.transactionId});
+
+  @override
+  void initState() {
+    super.initState();
+    fetchTransaction();
+  }
+
+  void fetchTransaction() async {
+    final request = context.read<CookieRequest>();
+
+    try {
+      final response = await request.get(
+        Urls.transactionJsonById.replaceFirst("<uuid:id>", transactionId));
+      // TODO: Add 404 handling
+      if (mounted) {
+        setState(() {
+          transaction = Transaction.fromJson(response);
+          isLoading = false;
+          isError = false;
+        });
+      }
+    } catch (e) {
+      print("Error: $e");
+      setState(() {
+        isLoading = false;
+        isError = true;
+      });
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
+
+    if (isLoading) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
+    if (isError) {
+      return Scaffold(
+        appBar: AppBar(title: const Text("Transaction Details")),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Icon(Icons.error_outline, size: 64, color: Colors.red),
+              const SizedBox(height: 16),
+              Text("An error occurred"),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: fetchTransaction,
+                child: const Text("Retry"),
+              ),
+            ],
+          ),
+        ),
+      );
+
+    }
+
     return Scaffold(
       appBar: AppBar(title: const Text("Transaction Details")),
       body: SingleChildScrollView(
@@ -46,6 +122,26 @@ class TransactionDetailPage extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+
+            const SizedBox(height: 24),
+
+            // ===== TRANSACTION ACTIONS =====
+            Row(
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text("Pay"),
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text("Complete"),
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text("Delete"),
+                ),
+              ],
             ),
 
             const SizedBox(height: 24),

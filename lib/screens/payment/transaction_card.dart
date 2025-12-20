@@ -25,7 +25,7 @@ class TransactionCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => TransactionDetailPage(transaction: transaction),
+              builder: (context) => TransactionDetailPage(transactionId: transaction.id),
             ),
           );
         },

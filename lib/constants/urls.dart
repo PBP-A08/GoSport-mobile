@@ -26,5 +26,12 @@ class Urls {
 
   static const String ratingJson = '$baseUrl/rating/json/';
 
-  static const String transactionsJson = '$baseUrl/payment/transactions/json/';
+  // Payment endpoints
+  static const String paymentRoot = '$baseUrl/payment';
+  static const String transactionsJson = '$paymentRoot/transactions/json/';
+  static const String transactionJsonById = '$paymentRoot/json/<uuid:id>/';
+  static const String paymentPay = '$paymentRoot/pay/<uuid:id>/';
+  static const String paymentComplete = '$paymentRoot/complete/<uuid:id>/';
+  static const String paymentDelete = '$paymentRoot/delete/<uuid:id>/';
+
 }
