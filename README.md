@@ -59,7 +59,7 @@ https://pbp.cs.ui.ac.id/sherin.khaira/football-site
 https://www.figma.com/design/fJYS62TdZ2JrQ0HYZ1bBDr/GoSport?node-id=0-1&t=9gWXe1tvA5CCsM5e-1
 
 ## APK
-https://app.bitrise.io/app/b1f4e718-02b8-49db-b4f9-e850e079e843/installable-artifacts/2c56b8691e07f0ea/public-install-page/11a40c23d343928d6bc249629fdabd88
+https://app.bitrise.io/app/b1f4e718-02b8-49db-b4f9-e850e079e843/installable-artifacts/5a04104ca8a38872/public-install-page/cbbd6ac25118cc7fa1ad77afa1c2e04b
 
 ## Video Promosi
 https://drive.google.com/file/d/1kSD0Bv8cx-eBaA8nAk960jY0MrvBHbGj/view?usp=sharing
