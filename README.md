@@ -54,3 +54,12 @@ Dataset mencakup 100+ produk olahraga dengan atribut seperti:
 
 ## Link Deployment (PWS)
 https://pbp.cs.ui.ac.id/sherin.khaira/football-site
+
+## Link Figma
+https://www.figma.com/design/fJYS62TdZ2JrQ0HYZ1bBDr/GoSport?node-id=0-1&t=9gWXe1tvA5CCsM5e-1
+
+## APK
+https://app.bitrise.io/app/b1f4e718-02b8-49db-b4f9-e850e079e843/installable-artifacts/b5f231a34ae3a022/public-install-page/d090b601be8b620c72ba74a505f1b4eb
+
+## Video Promosi
+https://drive.google.com/file/d/1kSD0Bv8cx-eBaA8nAk960jY0MrvBHbGj/view?usp=sharing
