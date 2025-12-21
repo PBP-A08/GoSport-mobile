@@ -299,7 +299,9 @@ class ProductDetailPage extends StatelessWidget {
                     textAlign: TextAlign.justify,
                   ),
                   const SizedBox(height: 20),
-                  TextButton(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [TextButton(
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -318,6 +320,7 @@ class ProductDetailPage extends StatelessWidget {
                         fontSize: 16, 
                         fontWeight: FontWeight.bold,
                       ),),
+                  )],
                   ),
                   // Listed date
                   Text(
@@ -367,38 +370,39 @@ class ProductDetailPage extends StatelessWidget {
                   ),
                 ),
               ),
-            Expanded(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: fields.stock > 0
-                      ? Colors.red[700]
-                      : Colors.grey,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+            if (role == 'buyer')
+              Expanded(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: fields.stock > 0
+                        ? Colors.red[700]
+                        : Colors.grey,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
-                ),
-                onPressed: fields.stock > 0
-                    ? () async {
-                        await CartApi.addToCart(request, id);
+                  onPressed: fields.stock > 0
+                      ? () async {
+                          await CartApi.addToCart(request, id);
 
-                        if (!context.mounted) return;
+                          if (!context.mounted) return;
 
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Added to Cart")),
-                        );
-                      }
-                    : null,
-                child: Text(
-                  fields.stock > 0 ? "Add to Cart" : "Out of Stock",
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Added to Cart")),
+                          );
+                        }
+                      : null,
+                  child: Text(
+                    fields.stock > 0 ? "Add to Cart" : "Out of Stock",
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ),

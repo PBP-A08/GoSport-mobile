@@ -47,7 +47,7 @@ class _RatingListPageState extends State<RatingListPage> {
             return Scaffold(
               body: rating.reviews.isEmpty
                   ? const Center(child: Text("There's no review for this product.",
-                  style: TextStyle(fontSize: 20, color: Color(0xff59A5D8)),))
+                  style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 140, 11, 2)),))
                   : ListView.builder(
                       itemCount: rating.reviews.length,
                       itemBuilder: (_, index) =>
