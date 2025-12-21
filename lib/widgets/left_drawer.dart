@@ -100,14 +100,15 @@ class LeftDrawer extends StatelessWidget {
           ),
 
           // CART BUTTON
-          ListTile(
-            leading: const Icon(Icons.shopping_cart),
-            title: const Text("Cart"),
-            onTap: () {
-              Navigator.pop(context); // Tutup drawer
-              Navigator.pushNamed(context, '/cart');
-            },
-          ),
+          if (role_state == "buyer")
+            ListTile(
+              leading: const Icon(Icons.shopping_cart),
+              title: const Text("Cart"),
+              onTap: () {
+                Navigator.pop(context); // Tutup drawer
+                Navigator.pushNamed(context, '/cart');
+              },
+            ),
 
           if (role_state == "seller")
             ListTile(
