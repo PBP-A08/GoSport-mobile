@@ -89,7 +89,7 @@ class RatingCard extends StatelessWidget {
                                             ).showSnackBar(
                                               const SnackBar(
                                                 content: Text(
-                                                  "Review berhasil dihapus",
+                                                  "Review successfully deleted",
                                                 ),
                                               ),
                                             );
