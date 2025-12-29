@@ -56,14 +56,13 @@ class _ProductListPageState extends State<ProductListPage> {
                 ],
               );
             } else {
-              // --- CHANGED TO GRIDVIEW ---
               return GridView.builder(
-                padding: const EdgeInsets.all(10), // Add padding around the grid
+                padding: const EdgeInsets.all(10),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // 2 Columns
-                  crossAxisSpacing: 10, // Horizontal space between cards
-                  mainAxisSpacing: 10, // Vertical space between cards
-                  childAspectRatio: 0.75, // Adjust this ratio to fit your ProductCard content
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 0.75,
                 ),
                 itemCount: snapshot.data!.length,
                 itemBuilder: (_, index) => ProductCard(
